@@ -117,6 +117,16 @@
             if (!set) return [];
             return this._codes.filter(c => set.has(c.id));
         }
+
+        getCommitIndicesForCode(codeId) {
+            const res = [];
+            for (const [idx, set] of this._byCommit.entries()) {
+                if (set.has(codeId)) res.push(idx);
+            }
+            res.sort((a, b) => a - b);
+            return res;
+        }
+
     }
 
     window.CodeManager = CodeManager;

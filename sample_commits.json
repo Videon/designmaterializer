@@ -1,0 +1,689 @@
+{
+  "commitObjects": [
+    {
+      "timestamp": "2024-01-26T15:55:43Z",
+      "title": "Initial commit",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-01-26T15:59:25Z",
+      "title": "Adding gitignore and gitattribute files for Unity and LFS",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-01-26T16:05:17Z",
+      "title": "Uploading the project",
+      "message": "Uploading the initial project (in multiple pushes). Even after a weekend of game jamming, there's not much of a game there. This initial project holds a few plugins that support development. I have also imported ProcMu, my previous attempt at creating a generative music generator for Unity. Instead of using CSound as before, however, I have removed the CSound-specific parts of ProcMu. Instead, sequencing and sound generation will use AudioHelm, which I have begun to connect with ProcMu. This forms the base for developing a suitable game design that takes advantage of the generative music system. After several failed attempts, note to self: gitignore for Unity files goes in the Unity project's root folder, not the repo's!"
+    },
+    {
+      "timestamp": "2024-01-30T06:04:16Z",
+      "title": "Working on the music generator",
+      "message": "1. Refactored and expanded ProcMu data structures to prepare implementation of various generative algorithms.\n2. Started implementing algorithms for music generation. Random, Perlin, LSystem --> see documentation.\n3. Implemented GUIs for the ProcMu features. Developing the UI along with the new features, to be able to configure the new parameters.\n\nStill some technical work to be done here but getting close to pleasant sounding music. Once that is dealt with, I will implement the gameplay. On this note, considering to not interpolate musical styles between music zones but concentrate on rhythmic synchronization and integration of spatialized objects with the music."
+    },
+    {
+      "timestamp": "2024-01-30T16:43:50Z",
+      "title": "Just a quick push before lunch break",
+      "message": "It is what it is. Started implementing the arpeggiator."
+    },
+    {
+      "timestamp": "2024-01-31T05:08:04Z",
+      "title": "Added arpeggiator-type features and switched scales back to ProcMu scale objects",
+      "message": "With this commit, the project has come to a point at which it can generate some simple but pleasant sounding music. However, it still makes sense to implement at least one non-linear algorithm for melodies, and possibly chords...\nIn terms of gameplay, I am considering to use procedural maps with hand-built, randomly placed landmarks which can be parts of the existing map. Players will need to find objects that are placed within or around these landmarks. Each landmark will have its own music setting using ProcMu's music zones."
+    },
+    {
+      "timestamp": "2024-01-31T20:14:57Z",
+      "title": "Added Perlin algorithm and finished the first reflective journal entry",
+      "message": "I also simplified the music configuration UI, removing the possibility to set different intensity settings. In the original ProcMu, every music configuration had two intensity settings, one for lowest, one for highest intensity. The system could interpolate between the two, resulting in a modulation of the music's intensity. Removing this feature is only temporary until I figure out how to integrate affective features more closely with Russell's valence/arousal model while making the music system more modular overall, allowing for easier changes in the future."
+    },
+    {
+      "timestamp": "2024-02-08T03:38:17Z",
+      "title": "Started work on the (new) interpolator and cleaned up folder structure",
+      "message": "Since basic music generation is working, the next step is to introduce change. For now, this change should be dependent on the player position in the game world. Music zones are areas that hold their own generative music configuration. The interpolator is responsible for creating a generative music configuration based on the configurations of all MusicZones around the player. For example, the parameters that define a rhythmic pattern will be calculated based on the weighted average of all given configurations. The weight is defined by the distance between a zone and the player. The closer the zone, the higher its configuration impact.\nI took some code from ProcMu's interpolator but there is still plenty to do in terms of interpolating each variable in the configurations. Some values will not be interpolated. Where it makes sense, I will just take the value of the closest music zone. For example, when choosing between discrete functions such as arpeggiator direction."
+    },
+    {
+      "timestamp": "2024-02-17T06:48:33Z",
+      "title": "Removing Unity project",
+      "message": "Audio output with AudioHelm did not work in builds which is a dealbreaker. Hence it's back to Unreal where MetaSound seems to have all I need. I put together a basic setup, which after two days of work is already ahead of the Unity approach. Builds work as well. Therefore, I'm removing the Unity project. The next commit will push the Unreal project.\nAlso, renaming the journal directory to docs for Github pages support in an attempt to make the journal experience nicer."
+    },
+    {
+      "timestamp": "2024-02-18T23:58:34Z",
+      "title": "Uploading the unreal project",
+      "message": "There is actually a lot of stuff that happened here. This is basically what I had already made in Unity, plus working sound objects but minus music zones and interpolation. Also there's now properly functioning procedural sound, a working build, and of course everything audio now using MetaSounds. There is a new island with different areas: a beach, a cove, and a hill, as well as paths in between these areas. Each area holds a signature sound object. The next step is to tune the existing beach, cove, and hill sound objects to sound interesting, fitting, and pleasant. The idea here is to have two parts: 1. a part of the sound that aims to represent nature (e.g., wind, waves, splashes...) 2. a musical part that is harmonically linked to the overall music construct. In addition to these sound objects, there is non-diegetic-like music that is supposed to tie everything together. This main music still needs to be set up, including chord, rhythm, and melody generation."
+    },
+    {
+      "timestamp": "2024-02-19T00:42:44Z",
+      "title": "Testing github pages",
+      "message": "I want to upload the journal through pages. Testing if I set it up correctly."
+    },
+    {
+      "timestamp": "2024-02-20T00:54:28Z",
+      "title": "Still testing",
+      "message": "Uploading a simple html file to check if it loads."
+    },
+    {
+      "timestamp": "2024-02-20T00:59:09Z",
+      "title": "Moved index.html to docs directory",
+      "message": "Still setting up GitHub pages."
+    },
+    {
+      "timestamp": "2024-02-20T03:57:41Z",
+      "title": "Github pages: Added _config.yml",
+      "message": "Display of journal entries is already working. This should provide some more options for rendering markdown files. I'm beginning to feel that these GitHub pages-related entries are terribly off-topic...."
+    },
+    {
+      "timestamp": "2024-02-20T18:57:19Z",
+      "title": "Update _config.yml",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:05:13Z",
+      "title": "Update index.html",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:13:45Z",
+      "title": "Update 2024-01-31.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:18:50Z",
+      "title": "Update 2024-01-31.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:23:50Z",
+      "title": "Update Procedural Music System.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:24:43Z",
+      "title": "Update 2024-01-31.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:28:58Z",
+      "title": "Update 2024-01-31.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:31:43Z",
+      "title": "Update 2024-01-31.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-20T19:31:54Z",
+      "title": "Update Procedural Music System.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-21T00:58:18Z",
+      "title": "Update 2024-02-14.md",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-22T18:21:14Z",
+      "title": "Reworking environmental sound objects",
+      "message": "After initial rough implementations of the beach, cove, and hill sounds, I am refining them further. On the one hand, to make their natural component sound more realistic, on the other hand, to make their musical component more pleasant and fitting to the overall music structure. I have also begun analyzing fitting existing musical pieces and adapting them into music modules to be integrated in the overall generative structure."
+    },
+    {
+      "timestamp": "2024-02-22T18:25:22Z",
+      "title": "Changed journal index page to markdown document",
+      "message": "If this works, then it will be easier to embed future entries here."
+    },
+    {
+      "timestamp": "2024-02-22T19:17:17Z",
+      "title": "Journal formatting",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-02-28T18:07:22Z",
+      "title": "Added sound objects, enhanced music, basic gameplay",
+      "message": "Worked on the overall music setup. Created two new sounds for the off-screen music and further refined the environmental sound objects. As with the Cove area, I'm planning to make the beach and hill sounds coming from four separate locations using audio buses.\nI have also added some basic gameplay: a ball spawns at one of the designated spots, switching to the next when touched by the player.\nNext, I will connect some gameplay parameters to the music system and implement a visual design for the island."
+    },
+    {
+      "timestamp": "2024-02-29T19:19:53Z",
+      "title": "Dressed up the island, iterating on the gameplay",
+      "message": "Added textures and 3d assets to give the island a visual style, as well as to define the paths the player can walk.\nI'm also working to make the gameplay more interesting. The goal object is now placed on the ground, at a random location around the designated spawn area. Next, I want to implemented the player having to press a key to pick up the object. The object should be randomized. It could be a stone, or something else that fits the environment.\nThen, I want to make the music system reflect the player's relation to the object (e.g., distance to the object, area object is located in)."
+    },
+    {
+      "timestamp": "2024-03-05T02:43:22Z",
+      "title": "World design, more musical elements, enhanced gameplay",
+      "message": "I've populated the world with assets, most greyboxing is gone now. There are more sounds in the music and I've added some first connections between player behavior and the system: The music now changes when the player moves closer to the center of the cove area. I'm going to implement similar approaches in the other areas as well. The player can now only access the full map by collecting objects and thus removing barriers. The collectibles are now more subtle and hidden in plain sight, spawning randomly around designated areas. I think I'm set with the gameplay for now, so I'm going to focus all on the music over the next sessions."
+    },
+    {
+      "timestamp": "2024-03-06T17:50:06Z",
+      "title": "Gameplay tweaks",
+      "message": "I've optimized collectible spawning such that they now only spawn in unlocked areas and only around spawnpoints at a minimum set distance away from the player. This should ensure that players always have to walk around to find the next collectible and might a create motivation to find collectibles in the first place. I still need to add a feature for the player having to actively pick up a collectible. After performing a soundwalk, I have identified the sounds needed to fill the island with some life. Therefore, I will next add new environmental sounds, in addition to further enhancing the music setup."
+    },
+    {
+      "timestamp": "2024-03-13T23:35:11Z",
+      "title": "Lots of stuff",
+      "message": "Implemented a tutorial at the start. First collectibles can be placed at specified locations. A tutorial barrier disappears once all of these have been collected by the player, starting regular gameplay:\nStones spawn in unlocked areas. Player unlocks areas by collecting stones.\n\nPlaced an illustration in the tutorial area, where the player can see an involuntarily cryptic depiction of the stone collecting task. Maybe it's good enough though and even adds some sense of mystery to this lonely island.\n\nHaving this should make the game much more playable now. I hope the tutorial makes everything self-explanatory without resorting to text. There's no explicit pick-up action yet. Wondering about how to communicate that mechanic to the player once implemented. Stone sizes are random on spawn. Might need to play around with size ranges more.\n\nThere is also a simple implementation of music intensity that goes up the further the player is away from the next stone. Should play around with distances more here. Currently, intensity (0...1) is connected to some rhythmic elements, leading to more intense percussion patterns (=more hits) with values towards intensity = 1 when the player is far away from the goal, and no percussion at all (intensity = 0) when the player is close to the goal. The idea is to animate the player to move around and look for the stone using more animated percussive patterns.\n\nI'm also constantly reworking the different area sounds, which are all not finalized yet. For some, I want to trigger something in the music. Definitely want to connect the parrot calls to some melodic output...\n\nThis commit holds around one week's worth of work. I forgot to push the project in this developmental flow.\n\nAlso\n- Added parrots and a procedural parrot call sampler. Placed the sound above the hill. Would like to have it rotate around the hill next.\n- Added tree rustling\n\nNext\n- Make frogs sound more musical\n- Still need to add a few invisible walls (for now)\n- Keep in mind new environmental sounds need custom attenuation curves\n- Thinking about things to add as the player collects more rocks. I'd love to add random stuff but need to find ways that fit within the conceptual framework...I guess....????"
+    },
+    {
+      "timestamp": "2024-03-21T20:02:26Z",
+      "title": "Added Microsoft Acoustics, as well as needed probe volumes and navmesh modifiers to prepare the scene for acoustics baking. Planning to add microphone support next so that the player can interact with the environments acoustic properties. Added a day/night cycle using a timeline that controls elements in the world. The sun now moves dynamically, though I aim to activate continuous time of day progression for after when the player has completed the tutorial. I'm now connecting the day time with the sounds in the scene, for example, the occurrence of parrot sounds shall depend on the sunlight intensity, since they are typically active from sunrise to sunset. Looking to do the same for the frogs and any other relevant sounds. I also reduced the size of the beach. It is much smaller now but there is a new connection to a cave which in turn leads to a new area on the opposite site of the island that connects back to the elevated pathway. I have also adjusted and added the collectible spawn positions to cover more parts of the map.",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-03-22T01:21:20Z",
+      "title": "Fixed tutorial, added day/night cycle as first unlockable feature",
+      "message": "If the player continues to collect stones after the tutorial ends, various things should happen on the island. As a first unlockable feature, a day/night cycle begins after collecting two rocks post tutorial. Also fixed various other things to hopefully make this playable despite a lack of explicit explanation."
+    },
+    {
+      "timestamp": "2024-03-23T20:34:22Z",
+      "title": "Fixed goal spawning in build",
+      "message": "The tutorial and main gameplay is working now. It gets too dark to be playable after the sun goes down. I need to add a night sky, moon or some other light sources. Maybe a flashlight? Some basic player glow?\nI should also add more variety to the music based on location.\nStill consider adding a pickup mechanic."
+    },
+    {
+      "timestamp": "2024-03-24T00:48:02Z",
+      "title": "Added a bird fx controller",
+      "message": "Sun intensity now also influences how many parrots are spawned via a custom BirdController blueprint. Also removed all bird niagara fx but the new one controlled by the blueprint."
+    },
+    {
+      "timestamp": "2024-03-25T20:29:38Z",
+      "title": "Started musical scale expansion, blog uploads",
+      "message": "Started work on more musical variety. For that I'm adding a second type of musical scale featuring notes in all octaves (going from midi note 0 to 127). This should also simplify some of the instruments that have their own implementations of multiple octaves. I also added the last finished and upcoming work in progress blog posts."
+    },
+    {
+      "timestamp": "2024-03-30T16:26:43Z",
+      "title": "Added broken footsteps and removed acoustics",
+      "message": "There's now a simple, though barely working implementation of footsteps. They're repeatedly being triggered in a MetaSound patch once the player starts walking and should be stopped once the player stops moving (not working yet). I'd rather have them triggered by the blueprint system but I'm not sure whether that would introduce significant delays between trigger and sound playback. Also, I'd like to synchronize the footsteps with the music, where triggering inside of MetaSound would make more sense.\nI also removed the MS Acoustics plugin for now, since the first result was not good enough and makes my workstation barely usable in the 2.5 days it takes to bake. Gotta fake it with hand-placed reverb and find some fitting impulse responses.\nAlso did some testing of rhythmic patterns, as well as minor journal edits/formatting."
+    },
+    {
+      "timestamp": "2024-03-31T00:07:27Z",
+      "title": "Fixes and tweaks for sun and parrots",
+      "message": "Fixed day/night cycle and parrot intensity, tweaked sunrise during tutorial so it gets a little brighter when the player has to go to the elevated area on the island rim. It should generally be easier to spot the collectibles early in the tutorial. Footsteps are inactive in this commit since the fixes were pushed to itch and the feature is not ready for release yet."
+    },
+    {
+      "timestamp": "2024-04-01T02:33:41Z",
+      "title": "Various works in progress incl footsteps, hill sounds, graphics settings.",
+      "message": "Started reworking the hill sound. Tweaked sun size: It's huge during sunrise/sunset but gets much smaller during the day now. Experimenting with scalable graphics settings. This looks less nice overall but still seems to use most rendering features. Also this disables auto exposure, which needed to at least be tweaked anyway. Basic footsteps are working now, even though it's not quite there yet (including support for different surfaces)."
+    },
+    {
+      "timestamp": "2024-04-01T02:34:05Z",
+      "title": "Various works in progress incl footsteps, hill sounds, graphics settings",
+      "message": "Started reworking the hill sound. Tweaked sun size: It's huge during sunrise/sunset but gets much smaller during the day now. Experimenting with scalable graphics settings. This looks less nice overall but still seems to use most rendering features. Also this disables auto exposure, which needed to at least be tweaked anyway. Basic footsteps are working now, even though it's not quite there yet (including support for different surfaces)."
+    },
+    {
+      "timestamp": "2024-04-01T02:34:17Z",
+      "title": "Merge branch 'master' of github.com:Videon/soundgarden",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-04-04T01:13:20Z",
+      "title": "Reworked frogs and added firefly visuals",
+      "message": "The frogs are finally singing! Also found a firefly particle effect on the marketplace that I'll place in the swamp area."
+    },
+    {
+      "timestamp": "2024-04-05T02:06:21Z",
+      "title": "Added activity curves",
+      "message": "Activity curves now define activity of dynamic entities. Added curves for the parrots and fireflies and implemented an observer pattern for checking sun intensity. Also tweaked the sun intensity curve, since it gets bright quite early. I wonder if I could derive sun intensity directly from the angle of the sun because right now it's quite finnicky to adjust the curve by hand...\n\nStill got to add a curve for the frogs and other ambient sounds which I will add next to fill the sonic gaps."
+    },
+    {
+      "timestamp": "2024-04-05T04:46:20Z",
+      "title": "Sun intensity tweaks and code optimizations",
+      "message": "The light orb is now only visible when sun intensity is low. Tried to fix jittery sun movement but failed. Switched more blueprints to observer pattern for doing something when sun intensity changes."
+    },
+    {
+      "timestamp": "2024-04-09T01:29:01Z",
+      "title": "General tweaks and music enhancements",
+      "message": "Tweaked attenuations, added grass to swamp, made things observe sun intensity. Started looking into dynamic wind to affect foliage. Also added a bass sound to the beach soundmark. This bass is audible regardless of distance to beach. Finalized blog post on some theories behind the project."
+    },
+    {
+      "timestamp": "2024-04-09T06:39:15Z",
+      "title": "Added general purpose audio bus player for swamp ambience",
+      "message": "Added general purpose audio bus player that starts two separate stereo clips concurrently and at random playback positions incl looping. Also made a blueprint to control it based on sun intensity. Placed four audio sources in the swamp for the night ambience and added two ambience clips. Right now there is no sound, likely because of some issue in setting the audio bus parameter from blueprint."
+    },
+    {
+      "timestamp": "2024-04-12T19:07:24Z",
+      "title": "Footsteps multi surface support but broken, easier tutorial",
+      "message": "Fixed footsteps with added support for rock and sand surfaces and then broke it again. Also moved footsteps sound to its own object on the player character and out of the Soundgarden metasound for now. This should make troubleshooting easier. I'm also getting an idea for expanding footsteps to other parts of the body interacting with the environment: shoulders or legs rubbing against close surfaces.\nTutorial enhancements: Added two more collectables in the swamp area. This should reduce the likelihood of the player losing sight of where to go and find the path uphill better."
+    },
+    {
+      "timestamp": "2024-04-16T04:11:22Z",
+      "title": "Adjusted game settings, documentation",
+      "message": "Reflections in the swamp should look nicer now. Created a map of the island. Also created a few documentation pages."
+    },
+    {
+      "timestamp": "2024-04-17T17:30:35Z",
+      "title": "Writing and breaking lighting",
+      "message": "Added some more information to the documentation. Unfortunately, the lighting completely broke upon reopening the project today and I really don't know why. Couldn't find anything relevant online, which leads me to think it could be a bug in the engine itself. Doing this backup commit to check if the problem persists when opening the project in the UE 5.4 preview. If it works, the new engine version should also bring a performance boost, since the developers claim to have made optimizations to Lumen. Fingers crossed."
+    },
+    {
+      "timestamp": "2024-04-17T21:05:07Z",
+      "title": "Trying to fix lighting",
+      "message": "Switching to 5.4 didn't help and seemed to have introduced other issues, such as making tree swaying glitchy. I did manage to tame the overexposure by adding a global post processing volume, however, there are still some adjustments to be made since all lights are generally less bright. Trying to go back to 5.3 after this commit."
+    },
+    {
+      "timestamp": "2024-04-17T22:45:36Z",
+      "title": "Fixing things and journalings",
+      "message": "I'm slowly getting the lighting back to how it was before. Nights are dark again, however, the sky is still brighter than before. It feels too bright when the sun isn't even on the horizon. Also added another journal entry.\nSwitching to 5.4 made it impossible to downgrade the map. I could pull an older version from before the switch, however, I've already made so many little changes that I will stick with 5.4 for now. Since it's scheduled to come out of preview at the end of this month, I'm hopeful the other new small issues will be fixed then."
+    },
+    {
+      "timestamp": "2024-04-17T22:51:19Z",
+      "title": "Fixed 2024-04-16 journal pics",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-04-19T21:00:17Z",
+      "title": "Back to 5.3",
+      "message": "Okay, 5.4 was causing trouble. Found a workaround for downgrading the project. We're back to 5.32 now. Everything seems to be working again but I should watch out for any issues I might have missed. Tamed the auto exposure issue. One of the causes was that the global directional light intensity was turned up way too high because of some bug...however, I still need to find a way to tone down the brightness of the sky at night."
+    },
+    {
+      "timestamp": "2024-04-20T16:25:47Z",
+      "title": "Added foosteps, cannot make builds",
+      "message": "Footsteps are working now!! BUT builds are broken. Unreal throws errors whenever I try to package the project. I'm afraid this is a result of the downgrade from 5.4."
+    },
+    {
+      "timestamp": "2024-04-22T19:17:48Z",
+      "title": "Build troubles continued",
+      "message": "Upgrading to 5.4 and then downgrading to 5.3 broke builds. Couldn't find a solution to this issue so doing this backup commit before going back to 5.4 again. I'd rather deal with a temporary performance regression than not being able to push new builds. 5.4 should come out of preview by the end of the month. May it'll fix the performance regression..."
+    },
+    {
+      "timestamp": "2024-04-22T19:52:39Z",
+      "title": "Builds working again",
+      "message": "Managed to get builds in 5.3 working again. Opened the project in 5.4, builds failed. Then opened the project in 5.3 and it was building perfectly fine. Phew..."
+    },
+    {
+      "timestamp": "2024-04-23T05:17:56Z",
+      "title": "Updated time triggers with material",
+      "message": "There are three objects on the beach that the player can trigger for changing how fast the sun moves. Pause, normal, and 6x speed. I still need to make it so that the material reacts to the player, and that the triggers only appear after one rock has been collected post-tutorial. I'm also thinking about having those three trigger being built visibly, made of stones, adding one at a time whenever the player collects one. Once one trigger symbol is completed by the stones, it will light a fire when the player triggers it, indicating its activation..."
+    },
+    {
+      "timestamp": "2024-04-25T20:15:40Z",
+      "title": "Various small improvements of the game map to improve audio occlusion: For example, trees are now marked as invisible walls. They're still visible as usual, however, the audio system will not occlude sounds that are behind trees anymore. Added a metasound patch for generating Euclidean rhythms, to introduce more complex and varied rhythmic structures. Also experimenting with changing percussion sounds on the fly, for example, to have different sounds at night vs. day. Added logic for the time triggers to only appear after the player has collected 4 stones post tutorial. Normalized the volume of the swamp ambience sounds since they were too quiet before. Added audio volumes across the map for supporting different reverbs per area.",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-04-25T22:37:27Z",
+      "title": "Added speaker object model and blueprint actor",
+      "message": "Began implementation of a speaker object that will allow for playing back the different music voices from within in the game environment."
+    },
+    {
+      "timestamp": "2024-04-26T03:01:17Z",
+      "title": "Moving music over to the game environment",
+      "message": "I've begun to integrate the output of the Soundgarden music system into the game environment using speaker objects. Used a horn and bell asset from Quixel. I've turned the volume in the main MetaSound patch to zero. Might remove the mixer altogether.\nCreated two speaker variations to carry the sounds of voice 0 and 1. Scattered speakers around the swamp and parts of the hill. Some speakers don't seem to be working though. It's the ones which seem to be out of attenuation range at the start of the game. Need to check if there's some auto disabling going on..."
+    },
+    {
+      "timestamp": "2024-04-26T04:15:18Z",
+      "title": "Fixed voices, tweaked attenuation curves",
+      "message": "Turns out I had exceeded the voice count. Increased it from 32 to 128. This should provide some room to add a few more audio sources. Everything sounds far more lush now!\nAlso tweaked attenuation curves for most sounds. The parrots are now audible across roughly 2/3 of the island now.\nNow I just need to find a nice way to integrate the percussive sounds into the environment...."
+    },
+    {
+      "timestamp": "2024-04-27T04:27:06Z",
+      "title": "Various light-related tweaks",
+      "message": "Tweaked the collectible and orb lights for easier gameplay during night time. Increased illustration brightness. Should find more ways to illuminate the island at night."
+    },
+    {
+      "timestamp": "2024-04-27T20:31:30Z",
+      "title": "Music system cleanup and dynamic global wind",
+      "message": "Cleaned Soundgarden's main music module. Everything is neater now, also using audio variables for internally routing signals so using fewer wires overall. Connected the foliage wind shader to the global wind controller. Now all that's left to do is get the global wind values to affect tree rustling occurrence and intensity, as well as modulating the wind ambience.\nAlso added several entries to the documentation."
+    },
+    {
+      "timestamp": "2024-04-28T00:48:10Z",
+      "title": "Implemented wind strength in global wind controller, working reverb volumes",
+      "message": "Wind strength now changes dynamically, affecting the swaying of trees and other foliage, as well as the synthesized ambient wind sound. Here, I've added a whistling effect that emerges at higher wind intensities. Now I just need to connect it to the leaves rustling sound generator.\nFound the reverb volume settings. Turned out that the \"all\"  tab must be selected in the detail view in order to see them. Gotta figure out a few more details but should be to add working reverb up next."
+    },
+    {
+      "timestamp": "2024-04-29T03:03:32Z",
+      "title": "Documenting",
+      "message": "Added more articles for the wiki-style project documentation, which can now be accessed from the project index page."
+    },
+    {
+      "timestamp": "2024-04-29T05:07:14Z",
+      "title": "Making things Proteus",
+      "message": "Added an intensity parameter to Kait. Low intensity = long decay. High intensity is bound to sun intensity. Connected the trigger out from the parrots sounds so during high sun intensity (> 0.8) this sound plays along with the parrots. Had to add a second instance of Kait so the sound doesn't cut out when it's triggered very often. Should add something like for the other melodic sound. Also still thinking what to do with the percussion. I want to give the player the ability to change between A: percussion intensity increases with distance from goal (current) and B: percussion intensity increases with amount of player movement over time."
+    },
+    {
+      "timestamp": "2024-04-29T19:16:59Z",
+      "title": "More documenting",
+      "message": "Updated and expanded documentation. Testing file naming for compatibility with html rendering of markdown files."
+    },
+    {
+      "timestamp": "2024-04-30T04:17:10Z",
+      "title": "Added walking/running, outlook adjustments, various audio improvements",
+      "message": "The player now walks more slowly by default because there is now a running feature, which makes them move around the island faster than before. \nChanged up the look of the outlook, opening up the top and making it look more like rocks balanced on top of each other.\nAdjusted attenuation and stereo spread on speaker objects. Added bass sound to the environment as two audio sources. Should play more with the idea that there are resonators underneath the island, which is where the sources are located. Also even more documenting."
+    },
+    {
+      "timestamp": "2024-04-30T18:54:29Z",
+      "title": "Tree rustling now influenced by wind intensity, documenting continues",
+      "message": "Tree rustling is now a blueprint that observes wind intensity, setting the respective parameter in the tree rustling sound that is attached to the actor's component. Added logic for handling the wind intensity parameter in the tree rustling MetaSound. Also finishing up the documentation."
+    },
+    {
+      "timestamp": "2024-04-30T21:12:09Z",
+      "title": "Cleaned up sound patches, finished documentation",
+      "message": "Patches look a bit nicer now. All the basic documentation is done, though I plan to add more elements in the future as there will likely be new sound modules or modifications of the existing ones. I also noticed that the parrot sound has some strange behavior when sun intensity is 0, leading to lots of cascades in the night. Must fix."
+    },
+    {
+      "timestamp": "2024-05-01T03:00:56Z",
+      "title": "Fixed time triggers and parrots",
+      "message": "Time triggers now hide and show properly. Also added pause, play, fast forward icons to show their impact on time. Parrots were calling at 0 intensity, which is fixed now. The reason for this bug was that the number of triggers would be set to 0 at 0 intensity, which means infinite repeats for the trigger module. Now, the minimum trigger amount is 1, but triggers will only be forwarded when intensity > 1."
+    },
+    {
+      "timestamp": "2024-05-01T03:58:27Z",
+      "title": "You can now quit the game. Press escape!",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-05-01T04:37:31Z",
+      "title": "Forgot to assign escape key. Fixed. Also tweaked music speaker volumes",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-05-03T04:50:33Z",
+      "title": "Updated to Unreal 5.4",
+      "message": "This is just a performance update. Builds on new engine version perform better. Fixed build issues. For future reference in case of build issues, Target.cs is in unreal project root\\Intermediate\\Source !"
+    },
+    {
+      "timestamp": "2024-05-17T01:48:35Z",
+      "title": "Euclidean rhythms and new broken main menu",
+      "message": "Added two Euclidean rhythm modules, one that works with float arrays, another that is a real-time version which will return a hit or not based on a given step. Replaced the Perlin noise based rhythm generators in the percussion module. The number of hits in each of the four percussive tracks is modulated by the intensity parameter. However, the game is currently broken because I also added a main menu. Still need to figure out how to start the game. Once that is fixed, the new version will go up on itch."
+    },
+    {
+      "timestamp": "2024-05-28T14:10:23Z",
+      "title": "Fixed and added main menu",
+      "message": "The main menu is open on game start and closes when clicking Play. There's also a quit option and a placeholder for a future settings menu. The default rendering resolution is currently a bit too low for capable hardware, and may be too high for low to mid tier devices, so this is one of the options that players should be able to change in the settings. After this little bit of polish, I should next add another event that's unlocked when collecting rocks. Also, the footstep sounds seem to be coming more from the left, which I should look into."
+    },
+    {
+      "timestamp": "2024-06-09T13:32:41Z",
+      "title": "Journal sync",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-06-09T16:48:32Z",
+      "title": "Added a new journal entry",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-07-23T22:29:17Z",
+      "title": "Push for sync",
+      "message": "Pushing current project state to download on another machine"
+    },
+    {
+      "timestamp": "2024-07-30T20:22:32Z",
+      "title": "Started music balls experiment",
+      "message": "Added a simple particle emitter that triggers an attached sound. Next is to allow the player to shoot these particles and increase the complexity of sound events on particle impact. Also, secondary particles should be spawned, whose collision should have an additional audible impact."
+    },
+    {
+      "timestamp": "2024-08-16T16:25:50Z",
+      "title": "Started work on Rhythmer",
+      "message": "Rhythmer is planned to provide a global clock for triggering and synchronizing gameplay elements, such as rhythm-based puzzles, jump and run sequences, and more. Clock tick and other data will be read out from this MetaSound via a blueprint that other rhythm-dependent elements can access."
+    },
+    {
+      "timestamp": "2024-09-09T01:09:22Z",
+      "title": "As a first gameplay element to interact with Rhythmer, I have added the rhythm grid. The rhythm grid is a system that consists of a grid where each cell can be inactive, transparent, or active. The player can stand on an active cell. The idea is to have a defined trace of cells triggered successively, step-wise by a rhythm input. Currently testing with a 4x4 grid. Next up is to expand the grid and make a basic music setup whose rhythm controls the cell trace.",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-09-10T20:39:30Z",
+      "title": "Added rhythm grid",
+      "message": "As a first gameplay element to interact with Rhythmer, I have added the rhythm grid. The rhythm grid is a system that consists of a grid where each cell can be inactive, transparent, or active. The player can stand on an active cell. The idea is to have a defined trace of cells triggered successively, step-wise by a rhythm input. Currently testing with a 4x4 grid. Next up is to expand the grid and make a basic music setup whose rhythm controls the cell trace."
+    },
+    {
+      "timestamp": "2024-09-10T20:43:05Z",
+      "title": "Rhythm grid enhancement",
+      "message": "Adjusted the rhythm grid to preview the next usable cells. On the downbeat, the next cell is activated for the player to stand on. On subsequent beats, the upcoming cells will be previewed for the player to orient themselves where to step on the next downbeat. Currently this is set to work for a 4 note cycle but can be changed to work with other measures and rhythmic patterns as well."
+    },
+    {
+      "timestamp": "2024-09-10T21:13:58Z",
+      "title": "Merge remote-tracking branch 'origin/master'",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-09-11T19:43:11Z",
+      "title": "Integrated rhythm grid into musicballs scene",
+      "message": "Added concrete walls and steps leading up to and away from the rhythm grid. The concrete walls are meant to hide parts of the grid to make the overall path less obvious, as well as to prevent the player from jumping across the grid and possibly finding shortcuts. Once I have found a good configuration for the walls, I will integrate the rhythm grid into a second island in the main Soundgarden scene. With the second island, I aim for a less natural look, going for a more brutalist approach - concrete everywhere! The minimalist concrete look may help to emphasize the upcoming audiovisual elements that are rhythmically synchronized with the central Rhythmer system."
+    },
+    {
+      "timestamp": "2024-09-20T04:48:52Z",
+      "title": "Added more Rhythmer blueprint callbacks",
+      "message": "Tbh it's late and I'm just pushing some of the stuff I did last session. More info in next commit."
+    },
+    {
+      "timestamp": "2024-10-03T17:36:30Z",
+      "title": "Added new blog entry",
+      "message": "Go and read it!\nhttps://videon.github.io/soundgarden/2024-10-03.html"
+    },
+    {
+      "timestamp": "2024-10-04T14:01:29Z",
+      "title": "Push for device sync",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-10-04T18:59:21Z",
+      "title": "Improved musicballs scene geometry",
+      "message": "Just made the visible bounding box nicer"
+    },
+    {
+      "timestamp": "2024-10-18T19:07:18Z",
+      "title": "Added Wavefolder",
+      "message": "Implemented a MetaSound patch for wavefolding, which allows to change the timbre of a sound by just changing one parameter, i.e., the fold amount. This will be used for the rhythm grid puzzle, to indicate which platforms in the grid can be used. I'm also planning to let platforms light up briefly in the rhythm, so that the player will be able to associate a given timbre with the platform lighting up."
+    },
+    {
+      "timestamp": "2024-10-25T00:18:02Z",
+      "title": "Finished a first draft of the rhythm grid trial where the player has to move across several grids in succession, observing the rhythms of the moving platforms. Also added a few percussive loops to accompany the platform movement rhythms which should help the player perform in sync with the different rhythms. The loops are played back via a new MetaSound patch that stretches and synchronizes a given loop to the overall tempo of the music.",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-10-29T22:28:14Z",
+      "title": "Added a new journal entry",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-10-29T22:29:51Z",
+      "title": "Added link to new journal entry",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-11-05T01:46:45Z",
+      "title": "Performance improvements, speaker fixes, listening gameplay",
+      "message": "Improved performance by reducing the global illumination settings to medium. Higher values in the scalability settings lead to Lumen updates causing severe frame drops around every 10 frames. Going to need to make some lighting adjustments after this change, since there is less bounced light, i.e., dark areas are darker. Also fixed the speakers by using the built-in parameters of the audio component instead of setting values in a custom blueprint script and leaving the virtualization settings to play when silenced. This works for now but eventually I will need to add functionality that either disables all speakers when not on the island, or enables disables speakers in range via custom blueprint functionality because the restart option doesn't seem to work. Also added a basic setup for testing the second sound-led gameplay mechanic where the player must follow a sound to navigate a dark passage."
+    },
+    {
+      "timestamp": "2024-11-05T01:50:46Z",
+      "title": "Merge branch 'detachedfix'",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-11-05T16:26:19Z",
+      "title": "Improved wind path gameplay, enhanced rhythm grid visual feedback",
+      "message": "Adjusted sound emitter placement in the wind path gameplay so that sources are now further apart. Also reduced the volume of the rear emitters and added individual pink noise generators for each emitter for a better spatial effect.\nIn the rhythm grid puzzle, two path tiles before and after the currently active tile are now visualized with increasing transparency the further they're away. I might still play around with different colors for the platforms, how many tiles are previsualized, or adding animations but let's wait for some playtesting feedback first."
+    },
+    {
+      "timestamp": "2024-11-07T19:20:22Z",
+      "title": "Improved performance, fixed sound sources, minor adjustments",
+      "message": "Performance is now strongly improved, mainly due to adjusting the global illumination settings to medium. Higher values caused a Lumen update every few frames which led to a massive framerate drop. Changing this setting required adjusting existing light sources and adding new ones to account for the overall darker scene. There are now some new setting-related nodes in the game controller blueprint which I can later use as a base for implementing user adjustable graphics settings.\nI'm now using source buses for the all audio sources that use a separate MetaSound. This has a smaller overhead and delay compared to the previous solution, lowering CPU usage and further improving overall performance. The BusReader blueprints and MetaSounds are not required anymore. I have removed function calls here for now and will remove these objects altogether in the future. On that note, I should review which assets can be removed from the project to keep everything nice and tidy.\nBased on the playtesting comments I got, I want to add more feedback on collecting stones. As a first step, the instruction painting in the swamp is now animated, lighting up when a stone is collected. Next, I want picking up a stone to be reflected in the music."
+    },
+    {
+      "timestamp": "2024-11-08T18:09:47Z",
+      "title": "Added a new journal entry",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-11-13T18:54:45Z",
+      "title": "More wind path gameplay optimizations",
+      "message": "I have modified the placement of the audio sources along the wind path's spline. Now, the front and rear sources are separated into two objects that are placed dynamically around the closest position to the player on the spline. Before, the sources were placed on a rig, essentially a rectangle, with the sound sources placed each corner. This rig would move along the spline. This had the disadvantage that sources would need a lot more space to be able to move around a curve without clipping through the surround walls of the tunnel. Furthermore, if the player was positioned between the front/rear sources and approaching a turn, the rig would only start turning when the player is at the very bend of the turn, making the required change of direction less clear. With the improved setup, front/rear sources can be placed further away from the player, while being able to turn around corners. Because of that, changes of direction can be heard more clearly."
+    },
+    {
+      "timestamp": "2024-11-19T17:44:17Z",
+      "title": "Journal sync",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-11-19T20:54:32Z",
+      "title": "Journal sync",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-11-20T01:54:13Z",
+      "title": "Implemented saving",
+      "message": "I added a feature that saves the game state. As of now, player transform, score, time of day, and unlocked areas are stored whenever the player collects a new stone after finishing the tutorial. In the future, we might need more save points once the other two islands are implemented. When the game is restarted, the save game is supposed to be loaded automatically. While the logic for everything is in, the actual saving and loading does not seem to work yet. I'm sure I'll have that fixed in the next commit. Once saving works, I will start building the sound-led island in the main scene and add the existing rhythm and wind path game mechanics."
+    },
+    {
+      "timestamp": "2024-11-20T23:31:35Z",
+      "title": "Island 2 and save fix",
+      "message": "I started implementing island 2 which will feature the sound-led interactions. I created the basic landscape and have begun dressing it up with rocks. I also created an outdoor labyrinth and a cave which will be the area that will feature the wind path gameplay. Everything is ready for that - I just need to add the wind path blueprint objects and make a spline for the outdoor labyrinth.\nI also fixed saving. While that is working now, there are still some issues in restoring the game state after loading. Player positioning works but the day-night cycle and stone collection are broken. I also want to add an option to reset the save game and I want to place that in the settings menu, which I still need to create. However, once that is done I will also have everything ready to implement graphics quality settings.\nI have also experimented with some new dynamic/reactive to music visual elements, specifically tree roots that are meant to glow and animate when it's dark. I'm not sure yet whether I will actually add this, there's still some more experimentation to do."
+    },
+    {
+      "timestamp": "2024-11-21T17:22:50Z",
+      "title": "Island 2 mapping",
+      "message": "I continued dressing up the hills of island 2 with rocks. The wind cave and labyrinth hill is almost done. Still need to add the wind path sound emitters."
+    },
+    {
+      "timestamp": "2024-11-21T20:19:56Z",
+      "title": "Started work on settings",
+      "message": "Created a basic settings menu and implemented the feature to delete the savegame. Next I need to implement different visual settings and create navigation from the main menu and back. I should also remember to solve the disappearing mouse issue when calling the menu in-game."
+    },
+    {
+      "timestamp": "2024-11-23T01:01:16Z",
+      "title": "Finished wind path gameplay and hill",
+      "message": "Added the wind path audio objects for the cave spline and created another spline for the outdoor labyrinth wind path section, which means that the wind path gameplay is up and running. Also finished dressing up the cave path hill with rocks. However, I got a bit sloppy so I might need to fix the placement of the rock slabs here and there."
+    },
+    {
+      "timestamp": "2024-11-25T00:55:06Z",
+      "title": "Fixed saving, added settings menu, more mapping",
+      "message": "Save games are working now but I need to fix the spawn of the time setters on load. The settings menu now allows to change graphics fidelity (which for the only adjusts lumen setting since it's the main performance hog). Also continued more mapping work for island 2. I should really look into procedural tools that could help me here..."
+    },
+    {
+      "timestamp": "2024-11-27T16:14:02Z",
+      "title": "Fixed menu, connected island 2, finished wind path, various tweaks",
+      "message": "Had to fix a few more bugs related to saving and add more data to be saved (the game now tracks which island the player is on using triggers in the game world). Graphics settings are now actually applied when selected, albeit not saved yet. I will need to create a separate save game slot for the settings. The main menu can now be opened at any time by pressing escape and closed by selecting play. The game can now be exited by selecting quit in the menu. The mouse cursor is now properly shown or hidden when opening/closing it.\nIsland 2 is now accessible. After finishing the introduction, a grey box walkway will appear in the sea, leading from the beach to island 2. Thinking about placing a teleport point on the beach instead, at least for the time being. I'm also thinking about island 3 already and how I might turn it into a shallow reef/lagoon between the two current islands instead, to avoid long, boring paths.\nThe light orb now only works on island 1 and the path to island 2 because otherwise it might interfere with some of the gameplay. To deal with the darkness, I have added some lights to illuminate island 2, especially the areas around the wind path cave. Since this seems to be working well and looks quite nice, I'm thinking about removing the light orb altogether, and instead scattering a few dim lights around island 1 as well.\nThe wind path gameplay on island 2 is now fully implemented. I had to place a few post process volumes around the area to make sure the cave walls are not visible, forcing the player to navigate by ear. There's now also a dimly lit resting area halfway through the cave. Thinking about adding explanatory illustrations at the path entrance but let's see how playtests go first. However, even if things turn out to be self-explanatory, I think there should be at least some related illustration for every gameplay area.\nI have also raised the overall exposure for darker areas by adjusting the MinEV setting by -1, since switching to lower global illumination quality turned some areas completely dark in low light situations. However, this added a light shimmer to many surfaces that I might be able to make more subtle by slightly increasing MinEV. Also fixed a few sound source attenuation settings.\nThis was a big one. I feel like Soundgarden has reached a new phase that is starting to resemble something more than just a walking sim. Especially walking around the wind path in island 2 is giving me some serious adventure game vibes."
+    },
+    {
+      "timestamp": "2024-12-03T01:36:16Z",
+      "title": "New teleport, wind path tweak, and some fixes",
+      "message": "Replaced the grey box path with teleporters. Players are now instantaneously transported between islands. This is only temporary, until the addition of the third gameplay area that will be placed in between islands 1 and 2. Tweaked the wind path so that it fades in the wind sound for the closest path end. This means that now when the player enters a wind path, they will first hear the wind sound that guides them to the other end. As they walk further down the path, the wind sound for the end they came from will gradually fade in.\nAlso fixed some colliders to avoid players getting stuck.\nAttempted to fix the lighting being broken when the game is started without a saved game. Lighting works after reloading the level but the question is, how have it work without this workaround? Loading a dummy preloader level did not help..."
+    },
+    {
+      "timestamp": "2024-12-03T02:54:55Z",
+      "title": "Fixed broken lighting at game start",
+      "message": "It's fixed. I added a BeginPlay event to the SunSky object that triggers a recalculation of lighting after a short delay. While this works, this causes a tiny hiccup and flash at the game start. Since audio has been coming in too rapidly anyway, I should eventually add a fade in for both the visuals and the sound to mask that.\nSide note: I noticed that when modifying Unreal objects in the Plugins folder, this is not tracked on Git. I have to make sure to transfer all modified data from the Plugin folder to the game's content directory."
+    },
+    {
+      "timestamp": "2024-12-18T01:07:19Z",
+      "title": "Started work on Soundgates, island 2 tweaks, journaling",
+      "message": "I have begun implementing the sound gates gameplay where the player has to tell which one of three sounds is the odd one out to successfully walk through the respective gate. Choosing wrong will close all gates, the player has to restart. What's still left to do is handling successful gate traversal. I also tweaked the geometry of island 2, making sure the player can't jump across the ravine. Also added a path from the island entrance area to the hub. Last but not least, I added another journal entry from a long overdue commit."
+    },
+    {
+      "timestamp": "2024-12-18T21:31:21Z",
+      "title": "Sound gates now working, added documentation, new journal entry",
+      "message": "The sound gates mechanic is now working, featuring three gates per row, with one odd sound. Currently, sound difference is just in sine wave vs triangle wave, however, I plan to enhance the mechanic's MetaSound patch to allow for more diverse (more types of differences between sounds) and subtle differences (smaller granularity of sound design options).\nI have also added documentation entries for this mechanic, as well as for the wind path and rhythm grid gameplay. The documentation pages are supplemented by short videos that demonstrate each mechanic.\nAlso, I have added the last journal entry for this year, featuring a quick recap of the previous months."
+    },
+    {
+      "timestamp": "2024-12-18T22:00:32Z",
+      "title": "Documentation link fix",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-12-18T22:02:33Z",
+      "title": "Another documentation link fix",
+      "message": ""
+    },
+    {
+      "timestamp": "2024-12-18T22:05:13Z",
+      "title": "Yet another fix",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-01-15T20:57:27Z",
+      "title": "Began sculpting the \"Odd one out\" gameplay area. I plan to add a little jungle area in the middle, as a diegetic source of distracting sounds that add some difficulty in differentiating between the options. Looking for some nice jungle trees...",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-01-31T17:22:16Z",
+      "title": "Body brushing, sound fixes and percussion sound object",
+      "message": "Added a body brushing mechanic, triggering brushing sounds whenever the player character's shoulders move closely along surfaces. To add more embodiment and sound interaction, I plan to further develop a mechanic that allows players to knock on surfaces and further get a grasp of the environment's materiality. These two mechanics might help ease traversal of the wind path cave.\nI also simplified existing sound objects, since the use of source buses made their setup logic obsolete. Having done that, I may have broken some assigned attenuation settings, some of which I have already fixed by assigning the correct attenuations in the source buses, which further simplifies sound source setup and placement. There may still be objects left I have overlooked. I should also rework some of the attenuation settings and add new ones.\nAlso started work on a sound object for percussion, preparing the removal of its sounds from screen space, making sure its only heard on island 1 and doesn't interfere with the sound gameplay in the other areas."
+    },
+    {
+      "timestamp": "2025-02-05T22:38:05Z",
+      "title": "Added pickup interaction, fixed teleport visuals, added rhythm speakers",
+      "message": "I have finished the animated sound speaker for rhythm playback and placed a few sources in the scene. I am still not quite happy with the visuals and consider scanning an object I found irl that would fit the desired look of the rhythm speaker, using photogrammetry.\nI have implemented the basic system for context-sensitive interactions. When the player nears an interactable object, a symbol indicating the type of interaction is shown. Currently, this is only supported for picking up rocks. This also means that rocks are no longer picked up by walking over them. It also  would be nice to have a fitting sound that can be heard on pickup. I am also considering making the appearance of the rocks more consistent and thus make them easier to recognize. This would also simplify the implementation of a cairn mechanic, where collected rocks would be visualized in a pile.\nI have also fixed the teleport visuals, making them visible in any lighting conditions. They also do not disappear anymore without reappearing again when the player moves too far away."
+    },
+    {
+      "timestamp": "2025-02-10T00:02:36Z",
+      "title": "OddOneOut basics done, island 2 modeling, project cleanup",
+      "message": "The odd one out game mechanic is basically done. I changed it from having to walk through one of three gates to interacting with one of three listener objects that each play a sound when the player is close. While randomization does seem to work according to the output of the controller blueprint, it is not reflected in the actual distribution of sounds for each listener. Probably just a small oversight somewhere I need to fix. The current implementation only supports disconnected setups of three listeners and one controller, respectively. I could either add more such setups, or just add more listeners to other areas that the controller dynamically switches between. I also still need to make barriers disappear when interacting with the correct listener. For that, and for the disappearing barriers in the tutorial section, i would like to add a disappearing shader effect which I have already built. Just need to implement a blueprint that controls the effect. Making the barriers slowly disappear with bright patterns could also help directing more attention to newly opened up areas on island 1.\nI have also continued modeling the remaining areas of island 2, mainly the odd one out section. Now, this section leads to the landmass on the other side of the ravine, which is intended for the rhythm grid gameplay.\nI have further optimized the project's folder structure. However, I noticed that moving and renaming folders leaves the original locations in the project, with the folders still holding files when checked in the explorer. This also throws reference error messages when attempting to delete them. I need to try removing them anyway, ideally right after a commit, to see if this causes any issues.\nNext, I'm going to finish the odd one out mechanic, add a little jungle to the area, with fitting but interfering sounds that are intended to make it harder to discern the odd sound source."
+    },
+    {
+      "timestamp": "2025-02-11T16:52:45Z",
+      "title": "OddOneOut working, animated barriers",
+      "message": "The odd one out game mechanic is now fully implemented, supporting multiple controllers and controlling barriers. Now, I just need to add the remaining four controller sections in the area. Next, I will need to make everything look more like a jungle, to justify the (to be added) dense soundscape meant to increase difficulty in listening to the sounds.\nOn a side note, there are also new barrier objects that have a dissolve animation, which not only work in the OOO area but are also meant to replace the barriers in the tutorial. Their dissolution effect visually draws attention, which should help point out newly opened areas in the tutorial. This might especially help with seeing the opened path leading to the outer rim of the first island when standing atop the hill."
+    },
+    {
+      "timestamp": "2025-02-14T18:19:48Z",
+      "title": "Finished OddOneOut, day-night system overhaul, various tweaks",
+      "message": "I finished the OOO area. It didn't become quite the jungle in the end but grass and trees certainly make engulfed enough to justify a lush soundscape. Currently, only the sounds of the ocean and the rustling of leaves interfere with the listening gameplay but I plan to add more here. I have also worked on the sounds of this gameplay, with dynamic difficulty and randomization, making for a slightly different experience every time the puzzle is reset. I still find it a bit too easy, however, I'm waiting for feedback from players to see if that really is the case.\nI have also added a night sky with a moon that brightens the nights. Therefore, I have also removed the light orb on island 1, since nights are now bright enough to navigate the environment without additional light. Since I have also tweaked the brightness of the directional light sources, I also had to make some adjustments for the auto exposure. Right now, the eye adaptation is basically off, since I'm still struggling to find the right settings that don't turn everything completely dark when the player looks at a dark area. To solve the issue of some areas being to dark, I have decreased the shadow contrast in the local exposure settings of the global post processing volume. I'm not sure if this solution is ideal, since it does make shadows less pronounced but perhaps it's just a matter of tweaking settings a bit more.\nThere have also been various other changes, improvements, additions, etc. Since I'm now also tracking tasks in a GitHub project board where I also document experiences and outcomes, I'm hereby referring to that for more details.\nOne more thing to mention is that performance should now be generally better, especially for the high end setting, due to decreasing cubemap resolution from 2048 to 128 in the SkyLight of the SunSky object."
+    },
+    {
+      "timestamp": "2025-02-24T20:18:56Z",
+      "title": "Island 2 sound source fixes, performance optimizations, new blog post",
+      "message": "I have fixed the new sound sources on island 2. It seems that assigning MetaSound-related parameters in the construction script only may not always work. So I had to change things to do the assignments when on BeginPlay.\nI also optimized the performance issues that especially occurred in the OOO area of island 2, mainly stemming from the foliage. I changed the foliage to use the less detailed LODs, however, I find the triangle count still way too high for just simple background foliage. Will probably have to find other meshes and perhaps textures. I should experiment with cutout squares with wayyy fewer triangles.\nAlso added the latest blog entry."
+    },
+    {
+      "timestamp": "2025-05-13T16:02:41Z",
+      "title": "Added lagoon, sea organ, started sound ball, 5.5 update, various fixes",
+      "message": "And we're back for the last sprint to finish Soundgarden!\nThere's finally the new lagoon area that will host interactive sound objects where the player can affect the sound.\nAdded a generative sea organ, inspired by the one in Zadar, Croatia. Still need to add a scale switcher here, for the player to play around with.\nAlso added a basic marble-looking object as for the sound ball mechanic.\nRemoved the teleporters, since now island 1 and 2 are connected via the lagoon.\nAdded invisible walls to make sure players don't take an involuntary swim in the ocean.\nAlso did various tweaks and fixes under the hood, including updating to UE 5.5.\nKeeping this commit message short because I have to head out - more details follow."
+    },
+    {
+      "timestamp": "2025-05-21T17:41:40Z",
+      "title": "Sonic marbles and better interactions",
+      "message": "The lagoon area now features marbles that play notes when pushed around, based on the speed and direction of the rolling motions.\nAlso implemented a streamlined interaction system for triggering buttons and the like. Still want to add button motion for the odd one out listener objects - and on that note, replace the current placeholder boxy look with something nicer."
+    },
+    {
+      "timestamp": "2025-07-23T23:23:20Z",
+      "title": "Saving my blog entry",
+      "message": "The post partum entry is almost finished. Just a little more!"
+    },
+    {
+      "timestamp": "2025-07-24T17:38:09Z",
+      "title": "Wrote some more",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-07-24T21:42:32Z",
+      "title": "More writing",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-05T19:46:50Z",
+      "title": "Finished the final-ish journal entry!",
+      "message": "It's more like three journal entries in one - but it's done."
+    },
+    {
+      "timestamp": "2025-08-05T19:49:58Z",
+      "title": "Tiny formatting fix",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-05T20:02:35Z",
+      "title": "Another formatting fix for side notes",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-05T20:21:06Z",
+      "title": "Last formatting fix",
+      "message": "Okay, seems like the notes are not rendered live in the same way as Obsidian does it. Not as fancy as I'd like but at least they're working now."
+    },
+    {
+      "timestamp": "2025-08-07T18:53:24Z",
+      "title": "Added LICENSE",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-10T16:53:50Z",
+      "title": "Create default.html",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-11T15:43:37Z",
+      "title": "Tiny formatting fixes",
+      "message": ""
+    },
+    {
+      "timestamp": "2025-08-11T15:43:44Z",
+      "title": "Merge remote-tracking branch 'origin/master'",
+      "message": ""
+    }
+  ]
+}

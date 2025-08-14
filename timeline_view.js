@@ -54,7 +54,20 @@
 
             this.selected = new Set();      // holds keys like "commit:12" or "gap:7"
             this._drawRects = [];           // updated every frame: hit-testable rects we actually drew
+
+            this.hudVisible = true;
+            this._lastVisCount = 0;
+            this._lastRenderCards = true;
         }
+
+        setHUDVisible(flag) {
+            this.hudVisible = !!flag;
+        }
+
+        getFrameStats() {
+            return {visibleCount: this._lastVisCount, renderCards: this._lastRenderCards};
+        }
+
 
         setMode(mode) {
             this.mode = mode;
@@ -198,6 +211,21 @@
 
             this._gapCardMemo.set(days, gfx);
             return gfx;
+        }
+
+        getTimelineY() {
+            // falls back to 0.7 if yLineRatio isn't present
+            const ratio = (typeof this.yLineRatio === "number") ? this.yLineRatio : 0.70;
+            return height * ratio;
+        }
+
+        // Y below which timestamps/leader lines occupy space. Codes panel must stay ABOVE this Y.
+        getTimelineSafeTopY() {
+            const yLine = this.getTimelineY();
+            // Reserve: leader line + gap + (date line above time line)
+            // Uses the same constants you defined at module scope.
+            const reserveAbove = TS_LEADER_LEN + TS_TEXT_GAP + TS_LINE_GAP + 6; // +6 padding
+            return yLine - reserveAbove;
         }
 
         keyFor(kind, index) {
@@ -355,13 +383,13 @@
         draw(statusMsg) {
             background(248);
 
-            // banner
-            noStroke();
-            fill(30);
-            textSize(16);
-            text(statusMsg, 16, 60);
-
             if (!this.commits.length) return;
+
+            // If time-mode view got invalid, snap to the data domain
+            if (this.mode === "time" && (!Number.isFinite(this.vMin) || !Number.isFinite(this.vMax))) {
+                this.vMin = this.tMin;
+                this.vMax = this.tMax;
+            }
 
             const yLine = height * 0.7;
             const drawW = width - this.marginL - this.marginR;
@@ -398,32 +426,89 @@
                 xs[k] = this.coordToX(coord, drawW);
             }
 
-            //timeline markers
+            // --- MARKERS + KNOTS + TIMESTAMP FLAGS (bottom edge flush with marker top) ---
+
+            const TS_MIN_LABEL_GAP = 4;
+            const LABEL_PAD_X = 4;
+            const LABEL_PAD_TOP = 2;
+            const LABEL_PAD_BOT = 2;
+
+            textSize(12);
+            textAlign(LEFT, BOTTOM);
+
+            // 1) Visibility pass (hide later labels that would overlap earlier ones)
+            let lastRight = -Infinity;
+            const labelVisible = new Array(xs.length).fill(false);
+            const labelWidth = new Array(xs.length).fill(0);
+            const dateTime = new Array(xs.length);
+
+            for (let k = 0; k < xs.length; k++) {
+                const i = start + k;
+                const dt = Utils.formatDateTimeFromSeconds(this.commits[i].t);
+                dateTime[k] = dt;
+
+                // width is max of both lines + horizontal padding
+                const w = Math.max(textWidth(dt.time), textWidth(dt.date)) + LABEL_PAD_X * 2;
+                labelWidth[k] = w;
+
+                const leftX = xs[k]; // left of flag aligns to marker line
+                if (leftX >= lastRight + TS_MIN_LABEL_GAP) {
+                    labelVisible[k] = true;
+                    lastRight = leftX + w;
+                }
+            }
+
+            // 2) Leader (marker) lines: shorter if label hidden
             stroke(40);
             strokeWeight(2);
-            for (let k = 0; k < xs.length; k++) line(xs[k], yLine, xs[k], yLine - TS_LEADER_LEN);
+            for (let k = 0; k < xs.length; k++) {
+                const len = labelVisible[k] ? TS_LEADER_LEN : Math.round(TS_LEADER_LEN * 0.55);
+                line(xs[k], yLine, xs[k], yLine - len);
+            }
 
-            //timeline knots
+            // 3) Knots
             noStroke();
             for (let k = 0; k < xs.length; k++) {
                 const i = start + k;
-                const selected = this.isSelected("commit", i);
-                fill(selected ? color(30, 140, 255) : color(30));
-                circle(xs[k], yLine, selected ? this.knotR + 2 : this.knotR);
+                const sel = this.isSelected && this.isSelected("commit", i);
+                fill(sel ? color(30, 140, 255) : color(30));
+                circle(xs[k], yLine, sel ? this.knotR + 2 : this.knotR);
             }
 
-            // timestamps: two-line timestamp (UTC) above leader, LEFT-aligned at the marker x
+            // 4) Timestamp flags as simple rectangles whose BOTTOM touches marker top
             fill(20);
             textSize(12);
             textAlign(LEFT, BOTTOM);
+            const lineH = textAscent() + textDescent();
+
             for (let k = 0; k < xs.length; k++) {
-                const i = start + k, c = this.commits[i];
-                const x = xs[k] + TS_TEXT_LEFT_GAP;
-                const textY = yLine - TS_LEADER_LEN - TS_TEXT_GAP;
-                const {date, time} = Utils.formatDateTimeFromSeconds(c.t);
-                text(time, x, textY);
-                text(date, x, textY - TS_LINE_GAP);
+                if (!labelVisible[k]) continue;
+
+                const leftX = xs[k];
+                const len = TS_LEADER_LEN;                 // full leader for visible labels
+                const bottomY = yLine - len;                 // top of the leader line
+
+                // Flag height: two lines + gap + padding
+                const rectH = (lineH * 2) + TS_LINE_GAP + LABEL_PAD_TOP + LABEL_PAD_BOT;
+                const rectY = bottomY - rectH;               // so bottom edge is flush with marker top
+                const rectW = labelWidth[k];
+
+                // Background + border
+                stroke(0);
+                noFill();
+                rect(leftX, rectY, rectW, rectH);            // simple rectangle (no rounded corners)
+                noStroke();
+                fill(20);
+
+                // Text baselines inside the flag
+                const timeBaseY = bottomY - LABEL_PAD_BOT;   // time on the bottom line
+                const dateBaseY = timeBaseY - TS_LINE_GAP;   // date above by the configured gap
+                const textX = leftX + LABEL_PAD_X;
+
+                text(dateTime[k].date, textX, dateBaseY);
+                text(dateTime[k].time, textX, timeBaseY);
             }
+
 
             if (showTimeRibbons && count > 0) {
                 // Draw a thin ribbon between each consecutive pair (i, i+1) with >1 full day gap
@@ -516,20 +601,32 @@
                 }
             }
 
+            this._lastVisCount = count;          // NEW
+            this._lastRenderCards = renderCards; // NEW
+
 
             // HUD
-            this.drawHUD(yLine, renderCards, count);
+            // HUD
+            if (this.hudVisible) this.drawHUD(yLine, renderCards, count, statusMsg);
         }
 
         drawTick(x, y, t, label) {
+            if (!Number.isFinite(t)) return;             // guard
+            const ms = t * 1000;
+            if (!Number.isFinite(ms)) return;            // guard
+
+            const d = new Date(ms);
+            if (Number.isNaN(d.getTime())) return;       // guard
+
             stroke(0);
             line(x, y - 6, x, y + 6);
             noStroke();
             fill(60);
             textSize(12);
-            const iso = new Date(t * 1000).toISOString().slice(0, 10);
+            const iso = d.toISOString().slice(0, 10);
             text(`${label}: ${iso}`, x - 40, y + 24);
         }
+
 
         drawIndexTick(x, y, v, label) {
             stroke(0);
